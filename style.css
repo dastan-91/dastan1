@@ -39,40 +39,105 @@ body {
     color: rgb(255, 255, 255);
     overflow-x: hidden;
 }
+/* ---- БУРГЕР ---- */
+.burger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  z-index: 1001;
+}
+
+.burger span {
+  width: 30px;
+  height: 3px;
+  background: white;
+  border-radius: 3px;
+  transition: 0.4s;
+}
+
+/* Анимация превращения в крестик */
+.burger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.burger.active span:nth-child(2) {
+  opacity: 0;
+}
+.burger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
 
 /* ---- НАВБАР ---- */
 .navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: rgba(10, 10, 10, 0.7);
-    backdrop-filter: blur(10px);
-    padding: 10px 0;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(20, 20, 20, 0.8);
+  backdrop-filter: blur(12px);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
 }
 
 .navbar ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    gap: 40px;
-    justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  transition: 0.5s;
 }
 
 .navbar a {
-    color: #d0d0d0;
-    text-decoration: none;
-    font-size: 18px;
-    transition: 0.3s;
-    font-family: "Playfair Display", serif;
+  color: #f0f0f0;
+  text-decoration: none;
+  font-size: 18px;
+  font-family: "Playfair Display", serif;
+  transition: 0.3s;
 }
 
 .navbar a:hover,
 .navbar a.active {
-    color: white;
-    text-shadow: 0 0 10px white;
+  color: #ffcc00;
+  text-shadow: 0 0 15px #ffcc00;
 }
+
+/* ---- АДАПТИВ ---- */
+@media (max-width: 768px) {
+  .burger {
+    display: flex;
+  }
+
+  .navbar ul {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    flex-direction: column;
+    gap: 20px;
+    background: rgba(10, 10, 10, 0.95);
+    padding: 20px;
+    border-radius: 12px;
+    display: none;
+    box-shadow: 0 0 20px #00000080;
+  }
+
+  .navbar ul.active {
+    display: flex;
+    animation: fadeIn 0.5s ease forwards;
+  }
+}
+
+/* Плавное появление меню */
+@keyframes fadeIn {
+  0% {opacity: 0; transform: translateY(-20px);}
+  100% {opacity: 1; transform: translateY(0);}
+}
+
+
+
 
 /* ---- СЕКЦИИ ---- */
 .section {
@@ -111,14 +176,46 @@ body {
 }
 
 /* ---- ПОДКАСТЫ ---- */
+/* ---- ПОДКАСТЫ (адаптивные) ---- */
 .podcast-column {
     display: flex;
-    flex-direction: row;      /* меняем с column на row */
-    gap: 60px;                /* расстояние между видео */
+    flex-direction: row;      
+    gap: 40px;                /* расстояние между видео */
     margin-top: 40px;
-    justify-content: center;  /* центрируем ряд */
-    flex-wrap: wrap;          /* перенос на следующую строку, если мало места */
+    justify-content: center;  
+    flex-wrap: wrap;          
 }
+
+.video-block {
+    flex: 1 1 300px;          /* гибкая ширина: минимум 300px, растет при необходимости */
+    max-width: 400px;
+}
+
+.video-block video {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 30px #00000080;
+}
+
+/* Адаптация под планшеты и телефоны */
+@media (max-width: 1024px) {
+    .podcast-column {
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .podcast-column {
+        flex-direction: column; /* на телефоне видео в колонку */
+        gap: 20px;
+        align-items: center;
+    }
+
+    .video-block {
+        max-width: 90%;       /* почти вся ширина экрана */
+    }
+}
+
 
 .podcast-column video {
     width: 85%;
@@ -127,14 +224,7 @@ body {
     box-shadow: 0 0 30px #00000080;
 }
 
-.video-block {
-    width: 400px;             /* размер каждого блока */
-}
 
-.video-block video {
-    width: 100%;
-    border-radius: 10px;
-}
 
 
 /* ---- МАКАЛАЛАР ---- */
