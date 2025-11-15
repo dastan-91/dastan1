@@ -43,5 +43,10 @@ function updateActive() {
     });
 }
 
-window.addEventListener("scroll", updateActive);
-updateActive();
+const burger = document.querySelector(".burger");
+const navMenu = document.querySelector(".navbar ul");
+
+burger.addEventListener("click", () => {
+    burger.classList.toggle("active"); // анимация бургер-крестик
+    navMenu.classList.toggle("active"); // открытие меню
+});
